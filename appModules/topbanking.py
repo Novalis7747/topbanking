@@ -11,7 +11,7 @@ import ui
 import scriptHandler
 
 """
-topbanking enhanced Version 0.1 
+topbanking enhanced Version 0.2 
 Author: Ralf Kefferpuetz, June 2018
 Features:
 - reducing speaking of the cell grid to its value
@@ -21,13 +21,14 @@ Features:
 class AppModule(appModuleHandler.AppModule):
 
 	def chooseNVDAObjectOverlayClasses(self, obj, clsList):
-		if obj.windowClassName in ("WindowsForms10.Window.8.app.0.34dca42_r6_ad1", "WindowsForms10.Window.8.app.0.7f9478_r6_ad1"):
+		#if obj.windowClassName in ("WindowsForms10.Window.8.app.0.34dca42_r6_ad1", "WindowsForms10.Window.8.app.0.7f9478_r6_ad1"):
+		if obj.windowClassName.startswith('WindowsForms10.Window.'):
 			clsList.insert(0, TBGrid)
 
 class TBGrid(IAccessible):
 
 	def event_gainFocus(self):
-		if self.windowClassName == "WindowsForms10.Window.8.app.0.34dca42_r6_ad1":
+		if self.windowClassName.startswith('WindowsForms10.Window.'):
 			if self.IAccessibleRole == 29:
 				ui.message(self.value)
 				return
